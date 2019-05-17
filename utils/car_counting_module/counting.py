@@ -1,13 +1,14 @@
-
+# ----------------------------------------------
+# --- Author         : Anıl D. ŞENEL - 140502039
+# --- Author         : EreN SAÇLI - 140502005
+# --- Author         : Nazelin ÖZALP - 140502023
+# --- Date           : 27th April 2019
+# ----------------------------------------------
 import csv
 import pandas
 import cv2
 import datetime
 import os
-
-is_vehicle_detected = [0]
-current_frame_number_list = [0]
-bottom_position_of_detected_vehicle = [0]
 
 
 def predict_count(
@@ -23,21 +24,16 @@ def predict_count(
     roi_left,
     error_foctor_bt
     ):
-    speed = 'n.a.'  # means not available, it is just initialization
-    direction = 'n.a.'  # means not available, it is just initialization
-    scale_constant = 1  # manual scaling because we did not performed camera calibration
-    isInROI = True  # is the object that is inside Region Of Interest
-    update_csv = False
-  
-    
+    is_vehicle_detected = [0]
+    #define an array save to log into defined array:
     csv_line=[]
     f = open('abc.csv','r')
     reader = csv.reader(f)
     for row in reader:
         csv_line.append(row)
     f.close()
-    
-    if(len(csv_line)==0): #if a cae pass onece in the video
+    #if a cae pass onece in the video
+    if(len(csv_line)==0): 
         if(bottom>roi_position_top and bottom<roi_position_bottom):
           is_vehicle_detected.insert(0,1)
     else:
@@ -50,10 +46,13 @@ def predict_count(
         #print(last_car_bottom)
         if(last_car_bottom>bottom and (last_car_bottom-bottom)>error_foctor_bt):
             is_vehicle_detected.insert(0,1)
-            print('Frame:'+str(current_frame_number)+'R: '+str(right)+' L: '+str(left)+' T: '+str(top))
-            CURRENT_DT = datetime.datetime.now()
-            savePath = 'detected_vehicles/'+str(CURRENT_DT.year)+'-'+str(CURRENT_DT.month)+'-'+str(CURRENT_DT.day)+'/'+str(CURRENT_DT.hour)+'_'+str(CURRENT_DT.minute)+'_'+str(CURRENT_DT.second)+'.png'
-            cv2.imwrite(savePath,crop_img)
+    #if a car passed save passing car image to archive.
+    if(1 in is_vehicle_detected):
+        CURRENT_DT = datetime.datetime.now()
+        savePath = 'detected_vehicles/'+str(CURRENT_DT.year)+'-'+str(CURRENT_DT.month)+'-'+str(CURRENT_DT.day)+'/'+str(CURRENT_DT.hour)+'_'+str(CURRENT_DT.minute)+'_'+str(CURRENT_DT.second)+'.png'
+        cv2.imwrite(savePath,crop_img)
+        print('Frame:'+str(current_frame_number)+'R: '+str(right)+' L: '+str(left)+' T: '+str(top)+' @ '+str(CURRENT_DT.hour)+':'+str(CURRENT_DT.minute)+':'+str(CURRENT_DT.second))
+
 
     #file operation
     f = open('abc.csv','a')

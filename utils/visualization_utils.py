@@ -1,3 +1,10 @@
+
+# ----------------------------------------------
+# --- Author         : Anıl D. ŞENEL - 140502039
+# --- Author         : EreN SAÇLI - 140502005
+# --- Author         : Nazelin ÖZALP - 140502023
+# --- Date           : 27th April 2019
+# ----------------------------------------------
 # Imports
 import collections
 import functools
