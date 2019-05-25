@@ -1,7 +1,7 @@
 
 # ----------------------------------------------
 # --- Author         : Anıl D. ŞENEL - 140502039
-# --- Author         : EreN SAÇLI - 140502005
+# --- Author         : Eren SAÇLI - 140502005
 # --- Author         : Nazelin ÖZALP - 140502023
 # --- Date           : 27th April 2019
 # ----------------------------------------------
@@ -42,7 +42,7 @@ if(os.path.exists(savePath)==False):
     os.mkdir(savePath)
 print('WELCOME TO ANE -CAR COUNTING SYSTEM!')
 video_path = input('ANTER THE VIDEO NAME OR PATH: ')
-if(os.path.exists(video_path)==False):
+if(os.path.exists(video_path) == False):
     print('VIDEO COULD NOT BE FOUND!')
     exit()
 # input video
@@ -113,7 +113,7 @@ def start_app():
                 #frame params means that if there is an image the returned image assing it.
                 imcodenumber+=1
                 if not ret:
-                    print ('end of the video file...')
+                    print('AND OF THE VIDEO, THANKS FOR USING TO THE APP!')
                     break
                 
                 input_frame = frame
